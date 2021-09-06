@@ -13,11 +13,13 @@ function getServerData(url) {
     )
 }
 
-document.querySelector("#getDataBtn").addEventListener("click",function(){
+function startGetUsers(){
     getServerData("http://localhost:3000/users").then(
         data => fillDataTable(data,"userTable")  
     );
-});
+}
+
+document.querySelector("#getDataBtn").addEventListener("click",startGetUsers);
 
 //Fill table with server data
 function fillDataTable(data, tableID){
@@ -44,15 +46,17 @@ function fillDataTable(data, tableID){
 function createAnyElement(name,attributes){
     let element = document.createElement(name);
     for (let k in attributes){
-        element.setAttribute(name,attributes[k]);
+        element.setAttribute(k, attributes[k]);
     }
     return element;
 }
 
 function createBtnGroup(){
-    let group = createAnyElement("div",{class: "btn btn-group"});
-    let infoBtn = createAnyElement("button",{class: "btn btn-info"});
-    let delBtn = createAnyElement("button",{class: "btn btn-danger"});
+    let group = createAnyElement("div", {class: "btn btn-group"});
+    let infoBtn = createAnyElement("button", {type: "button", class: "btn btn-info", onclick: "getInfo(this)"});
+    infoBtn.innerHTML = '<i class="fa fa-refresh" aria-hidden="true"></i>';
+    let delBtn = createAnyElement("button", {type: "button", class: "btn btn-danger", onclick: "delRow(this)"});
+    delBtn.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
 
     group.appendChild(infoBtn);
     group.appendChild(delBtn);
@@ -61,4 +65,23 @@ function createBtnGroup(){
     td.appendChild(group);
 
     return td;
+}
+
+function delRow(btn){
+    let tr = btn.parentElement.parentElement.parentElement;
+    let id = tr.querySelector("td:first-child").innerHTML;
+    let fetchOptions = {
+        method: "DELETE",
+        mode: "cors",
+        cache: "no-cache"
+    };
+
+    fetch(`http://localhost:3000/users/${id}`,fetchOptions).then(
+        resp => resp.json(),
+        err => console.error(err)
+    ).then(
+        data => {
+            startGetUsers();
+        }
+    )
 }
