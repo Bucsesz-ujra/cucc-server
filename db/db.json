@@ -1,10 +1,41 @@
 {
   "users": [
     {
+      "id": 1,
+      "name": "Big Tom",
+      "email": "bigtom@gmail.com"
+    },
+    {
       "id": 2,
       "name": "Little Jimmy",
       "email": "littlejimmy@gmail.com"
+    },
+    {
+      "name": "Gizella Rozália Zombori",
+      "email": "tbucsu@gmail.com",
+      "id": 4
+    },
+    {
+      "id": 5,
+      "name": "Gizella Rozi Zombori",
+      "email": "tbucsu@gmail.com"
+    },
+    {
+      "name": "Gizella Rozália Zombori",
+      "email": "tbucsu@gmail.com",
+      "id": 6
+    },
+    {
+      "name": "Cucc Mucc",
+      "email": "cucc@gmail.com",
+      "id": 7
     }
   ],
-  "comments": []
+  "comments": [
+    {
+      "id": 1,
+      "body": "Some comment",
+      "userId": 1
+    }
+  ]
 }
